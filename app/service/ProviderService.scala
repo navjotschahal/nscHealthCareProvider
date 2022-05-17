@@ -1,5 +1,6 @@
 package service
 
+import dao.ProvidersDao
 import models.{Provider, ProviderServiceAndCostDetails}
 
 import javax.inject.Inject
@@ -21,10 +22,10 @@ trait ProviderService {
 
 }
 
-class ProviderServiceImpl @Inject()()(implicit
+class ProviderServiceImpl @Inject()(providersDao: ProvidersDao)(implicit
                                       ec: ExecutionContext
 ) extends ProviderService {
-  override def searchProvidersByName(query: String): Future[Seq[Provider]] = ???
+  override def searchProvidersByName(query: String): Future[Seq[Provider]] = providersDao.searchProviders(query)
 
   override def getProviderServicesByProviderId(providerId: String): Future[Seq[ProviderServiceAndCostDetails]] = ???
 

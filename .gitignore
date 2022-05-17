@@ -9,3 +9,5 @@ target
 /RUNNING_PID
 /.metals
 /.vscode
+/project
+/.bloop

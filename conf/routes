@@ -9,6 +9,6 @@ GET     /                           controllers.HomeController.index()
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
 
-GET         /api/providers                               controllers.ProviderController.searchProviders(searchQuery: String)
-GET         /api/providersDetails/:providerId            controllers.ProviderController.getProviderDetailsById(providerId: String)
-GET         /api/providers/:providerId                   controllers.ProviderController.getProviderById(providerId: String)
+GET         /api/providers                               controllers.HealthProvidersController.searchProviders(query: String)
+GET         /api/providersDetails/:id                    controllers.HealthProvidersController.getSelectedProviderDetails(id: String)
+GET         /api/providers/:providerId                   controllers.HealthProvidersController.getProviderById(providerId: String)
