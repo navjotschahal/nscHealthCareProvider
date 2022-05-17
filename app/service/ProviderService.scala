@@ -18,7 +18,7 @@ trait ProviderService {
 
   def getProviderById(
                        providerId: String
-                     ): Future[Provider]
+                     ): Future[Seq[Provider]]
 
 }
 
@@ -27,7 +27,7 @@ class ProviderServiceImpl @Inject()(providersDao: ProvidersDao)(implicit
 ) extends ProviderService {
   override def searchProvidersByName(query: String): Future[Seq[Provider]] = providersDao.searchProviders(query)
 
-  override def getProviderServicesByProviderId(providerId: String): Future[Seq[ProviderServiceAndCostDetails]] = ???
+  override def getProviderServicesByProviderId(providerId: String): Future[Seq[ProviderServiceAndCostDetails]] = providersDao.getProviderServicesByProviderId(providerId)
 
-  override def getProviderById(providerId: String): Future[Provider] = ???
+  override def getProviderById(providerId: String): Future[Seq[Provider]] = providersDao.getProviderById(providerId)
 }

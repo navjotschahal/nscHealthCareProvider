@@ -1,6 +1,9 @@
 package models
 
+import formatters.TimestampFormatter
 import play.api.libs.json.Json
+
+import java.sql.Timestamp
 
 case class ProviderServiceAndCostDetails(
                                 id: String,
@@ -11,9 +14,10 @@ case class ProviderServiceAndCostDetails(
                                 estimatedTotalCost: String,
                                 insurancePays: String,
                                 estimatedOutOfPocketCost: String,
+                                createdAt: Timestamp
                               )
 
-object ProviderServiceAndCostDetails {
+object ProviderServiceAndCostDetails extends TimestampFormatter {
   implicit val format = Json.format[ProviderServiceAndCostDetails]
 }
 

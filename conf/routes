@@ -10,5 +10,5 @@ GET     /                           controllers.HomeController.index()
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
 
 GET         /api/providers                               controllers.HealthProvidersController.searchProviders(query: String)
-GET         /api/providersDetails/:id                    controllers.HealthProvidersController.getSelectedProviderDetails(id: String)
+GET         /api/providersServiceDetails/:id             controllers.HealthProvidersController.getSelectedProviderServiceDetails(id: String)
 GET         /api/providers/:providerId                   controllers.HealthProvidersController.getProviderById(providerId: String)
