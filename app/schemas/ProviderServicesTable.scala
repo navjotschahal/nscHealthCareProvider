@@ -5,12 +5,15 @@ import java.sql.Timestamp
 import models.ProviderServiceAndCostDetails
 import slick.jdbc.PostgresProfile.api._
 
+/**
+ * Slick model for ProviderServices Table mapping to db schema.
+ * @param tag
+ */
 class ProviderServicesTable(
-  tag: Tag
+    tag: Tag
 ) extends Table[ProviderServiceAndCostDetails](tag, "provider_services") {
 
   val providersTable = TableQuery[ProvidersTable]
-
 
   def id = column[String]("id", O.PrimaryKey)
   def providerId = column[String]("provider_id")
@@ -29,5 +32,15 @@ class ProviderServicesTable(
     )
 
   def * =
-    (id, providerId, providerName, serviceName, costNear, estimatedTotalCost, insurancePays, estimatedOutOfPocketCost, createdAt) <> ((ProviderServiceAndCostDetails.apply _).tupled, ProviderServiceAndCostDetails.unapply)
+    (
+      id,
+      providerId,
+      providerName,
+      serviceName,
+      costNear,
+      estimatedTotalCost,
+      insurancePays,
+      estimatedOutOfPocketCost,
+      createdAt
+    ) <> ((ProviderServiceAndCostDetails.apply _).tupled, ProviderServiceAndCostDetails.unapply)
 }

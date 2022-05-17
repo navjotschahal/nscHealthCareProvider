@@ -9,25 +9,35 @@ import scala.concurrent.{ExecutionContext, Future}
 trait ProviderService {
 
   def searchProvidersByName(
-                       query: String
-                     ): Future[Seq[Provider]]
+      query: String
+  ): Future[Seq[Provider]]
 
   def getProviderServicesByProviderId(
-                                       providerId: String
-                                     ): Future[Seq[ProviderServiceAndCostDetails]]
+      providerId: String
+  ): Future[Seq[ProviderServiceAndCostDetails]]
 
   def getProviderById(
-                       providerId: String
-                     ): Future[Seq[Provider]]
+      providerId: String
+  ): Future[Seq[Provider]]
 
 }
 
-class ProviderServiceImpl @Inject()(providersDao: ProvidersDao)(implicit
-                                      ec: ExecutionContext
+/**
+ * Provider Service implementation.
+ * @param providersDao
+ * @param ec
+ */
+class ProviderServiceImpl @Inject() (providersDao: ProvidersDao)(implicit
+    ec: ExecutionContext
 ) extends ProviderService {
-  override def searchProvidersByName(query: String): Future[Seq[Provider]] = providersDao.searchProviders(query)
+  override def searchProvidersByName(query: String): Future[Seq[Provider]] =
+    providersDao.searchProviders(query)
 
-  override def getProviderServicesByProviderId(providerId: String): Future[Seq[ProviderServiceAndCostDetails]] = providersDao.getProviderServicesByProviderId(providerId)
+  override def getProviderServicesByProviderId(
+      providerId: String
+  ): Future[Seq[ProviderServiceAndCostDetails]] =
+    providersDao.getProviderServicesByProviderId(providerId)
 
-  override def getProviderById(providerId: String): Future[Seq[Provider]] = providersDao.getProviderById(providerId)
+  override def getProviderById(providerId: String): Future[Seq[Provider]] =
+    providersDao.getProviderById(providerId)
 }

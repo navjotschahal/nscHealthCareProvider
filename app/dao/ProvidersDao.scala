@@ -10,17 +10,29 @@ import slick.jdbc.JdbcProfile
 import javax.inject.{Inject, Singleton}
 import scala.concurrent.{ExecutionContext, Future}
 
+
+/**
+ * DAO for provider and provider service details db queries.
+ * @param dbConfigProvider
+ * @param cc
+ * @param ec
+ */
 @Singleton
-class ProvidersDao @Inject()(@NamedDatabase("hcp") protected val dbConfigProvider: DatabaseConfigProvider, cc: ControllerComponents)(implicit ec: ExecutionContext)
-  extends HasDatabaseConfigProvider[JdbcProfile] {
+class ProvidersDao @Inject() (
+    @NamedDatabase(
+      "hcp"
+    ) protected val dbConfigProvider: DatabaseConfigProvider,
+    cc: ControllerComponents
+)(implicit ec: ExecutionContext)
+    extends HasDatabaseConfigProvider[JdbcProfile] {
   import profile.api._
 
   val providersTable = TableQuery[ProvidersTable]
   val providerServiceTable = TableQuery[ProviderServicesTable]
 
   def searchProviders(
-                       searchText: String
-                     ): Future[Seq[Provider]] = {
+      searchText: String
+  ): Future[Seq[Provider]] = {
     val query = providersTable
       .filter(row => row.name.toLowerCase.like(s"%${searchText.toLowerCase}%"))
       .result
@@ -28,8 +40,8 @@ class ProvidersDao @Inject()(@NamedDatabase("hcp") protected val dbConfigProvide
   }
 
   def getProviderById(
-                       id: String
-                     ): Future[Seq[Provider]] = {
+      id: String
+  ): Future[Seq[Provider]] = {
     val query = providersTable
       .filter(row => row.id === id)
       .result
@@ -37,8 +49,8 @@ class ProvidersDao @Inject()(@NamedDatabase("hcp") protected val dbConfigProvide
   }
 
   def getProviderServicesByProviderId(
-                       id: String
-                     ): Future[Seq[ProviderServiceAndCostDetails]] = {
+      id: String
+  ): Future[Seq[ProviderServiceAndCostDetails]] = {
     val query = providerServiceTable
       .filter(row => row.providerId === id)
       .result
